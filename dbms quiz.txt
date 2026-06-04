@@ -1,0 +1,21 @@
+1)CREATE TABLE projects ( project_id INT Primary KEY, project_name VARCHAR(100) NOT NULL, budget NUMERIC (10,2)start_date DATE, department_id INT, FORIGN KEY (department_id) REFERENCES departments(department_id));
+2)ALTER TABLE  employees ADD COLUMN email VARCHAR(100) UNIQUE;
+3)CREATE TABLE employees_projects (employee_id INT, project_id INT, assigned_date DATE NOT NULL PRIMARY KEY (employee_id,project_id));
+4)ALTER TABLE departments RENAME COLUMN location TO office_location;
+5)INSERT into departments (department_id,department_name)VALUES (101 'HR'),(102 'FINANCE'),(103 'IT');
+6)UPDATE employees SET salary = salary * 1.10 WHERE department_id = 50;
+7)UPDATE employees SET job_id = 'senior staff' WHERE hire_date < '2020-01-01';
+8)DELETE FROM employees e where salary < (SELECT AVG(salary) FROM employees WHERE department_id =e.department_id); 
+9)SELECT e.employee_name AS employee, d.department_name AS department, e.salary AS salary FROM employees e JOIN derartment d ON e.department_id = d.department_id; 
+10)select * from employees where salary between 5000 and 10000;
+11)select d.department_name, Count(e.employee_id) AS total_employees FROM departments d left join employees e ON d.department_id = e.department_id group by d.department_name;
+12)select d.department_name, AVG(e.salary) AS avg_salary from departments d join employees e ON d.department_id = e.department_id group by d.department_name Having AVG (e.salary) >7000;
+13)SELECT job_id, MAX(salary) AS highest_salary FROM employees GROUP BY job_id;
+14)SELECT d.department_name, SUM(e.salary) AS total_salary from departments d join employees e ON d.department_id = e.department_id group by d.department_name;
+15)SELECT e.employee_name,d.department_name,e.job_id FROM employees e INNER JOIN departments d ON e.department_id = d.department_id;
+16)SELECT department_id, COUNT(*) AS employee_count, AVG(salary) AS avg_salary FROM employees GROUP BY department_id HAVING COUNT(*) > 5 AND AVG(salary) > 6000;
+17)CREATE VIEW employee_details AS SELECT e.employee_name,d.department_name,e.job_id,e.salary FROM employees e JOIN departments d ON e.department_id = d.department_id;
+18)CREATE VIEW department_summary AS SELECT d.department_name, COUNT(e.employee_id) AS employee_count,AVG(e.salary) as avg_salary FROM department d LEFT JOIN employees e ON d.department_id = e.department_id GROUP BY d.department_name;
+19)CREATE VIEW high_salary_employees AS SELECT e.employee_name, d.department_name,e.salary FROM employees e JOIN departments d ON e.department_id = d.department_id WHERE e.salary >10000;
+20)CREATE VIEW department_stats AS SELECT d.department_name, COUNT(e.employee_id) AS employee_count, AVG(e.salary) as avg_salary FROM department d LEFT JOIN employees e ON d.department_id = e.department_id GROUP BY d.department_name HAVING COUNT (e.employee_id)> 3 AND AVG(e.salary)>7500;
+
